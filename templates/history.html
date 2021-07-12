@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p>To nejlepší vždy chce panovati,</p>
+	<p>co padá, to postrčte,</p>
+	<p>když jej nenaučíte létati,</p>
+	<p>rychleji ho padat naučte!</p>
+	<h2>Kronika</h2>
+	<p>Dávno, dávno se to stalo,</p>
+	<p>o zbytečnost nešlo,</p>
+	<p>tehdy ztrát nebylo málo,</p>
+	<p>a co z toho vzešlo?</p><br/>
+	{% for event in history %}
+		{% if type(event)==Borrow %}
+			<p>Co dělat, když není peněz?</p>
+			<p>Uvěr vzít si musíme!</p>
+			<p>Budem o {{(settings.interest_rate*100)|int}} % víc,</p>
+			<p>vracet, než si půjčíme,</p>
+			<p><b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> však tvrdí: {{event.amount}} &#x1F4B0; se hodí,</p>
+			<p>a my tomu věříme.</p>
+		{% elif type(event)==Donate %}
+			<p><b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> vládne vážně skvěle,</p>
+			<p>financuje své přátele,</p>
+			<p><b style="color: #{{settings.colors[event.beneficiary]}};">{{settings.players[event.beneficiary]}}</b> se raduje,</p>
+			<p>za {{event.amount}} &#x1F4B0; děkuje.</p>
+			<p>Teď armádu může zvětšovat</p>
+			<p>a s nepřáteli bojovat.</p>
+		{% elif type(event)==Buy %}
+			<p>Kdo zemi {{lands[event.land].name}} koupí,</p>
+			<p>ten věru neprohloupí,</p>
+			<p><b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> má dobrý nápad,</p>
+			<p>vojáci můžou chrápat,</p>
+			<p>cena směšná, to nic není,</p>
+			<p>ti lidé si zemi svou necení.</p>
+		{% elif type(event)==Recruit %}
+			<p>Vojáci jsou důležití,</p>
+			<p>ti rošťáci zlobiví,</p>
+			<p>činí svět lepším místem k žití,</p>
+			<p>a to <b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> dobře ví,</p>
+			<p>{{event.count}} jich naverbujeme,</p>
+			<p>ať v zemi {{lands[event.land].name}} líp žijeme.</p>
+		{% elif type(event)==Attack %}
+			<p>Ach, ty bojové operace,</p>
+			<p>s cestou směr {{lands[event.destination].name}} je dost práce,</p>
+			<p>{{event.count}} vojáků pochoduje,</p>
+			<p>neboť <b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> rozkazuje,</p>
+			<p>ze země {{lands[event.start].name}} vyšli kdysi,</p>
+			<p>když mají hlad, tak jedí krysy.</p>
+		{% elif event.type=='secession' %}
+			<p>Hanba mužům, kterým <b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> vládne,</p>
+			<p>ať ten tyran co nejdříve padne!</p>
+			<p>{{lands[event.land].name}} to je země hrdá,</p>
+			<p>revoluce byla tvrdá,</p>
+			<p>nejde o recesi,</p>
+			<p>jen chceme secesi!</p>
+		{% elif event.type=='seizure' %}
+			<p>Kdo si jen tak půjčuje,</p>
+			<p>potom toho lituje,</p>
+			<p>komu to nedochází,</p>
+			<p>ten o země přichází,</p>
+			<p>k {{event.land_count}} zabavením došlo dnes,</p>
+			<p>lépe než <b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b> má se i pes.</p>
+		{% elif event.type=='death' %}
+			<p>Říše, jíž vládne <b style="color: #{{settings.colors[event.player]}};">{{settings.players[event.player]}}</b>, padá,</p>
+			<p>můžeš si něco přát,</p>
+			<p>skončila toho monarchy vláda,</p>
+			<p>škoda, já měl ji rád,</p>
+			<p>ale teď já ptám se jen,</p>
+			<p>kdo příště půjde z kola ven?</p>
+		{% endif %}<br/>
+	{% endfor %}
+{% endblock %}

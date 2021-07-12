@@ -1,0 +1,8 @@
+<h1>Verbování</h1>
+Máš {{players[user].money}}&#x1F4B0; a dlužíš {{players[user].debt}}&#x1F4B0;<br/>
+Kolik vojáků chceš naverbovat v zemi {{lands[i].name}} ({{provinces[i].soldiers}}&#x1F468;)?
+<form action="/recruit" method="POST" autocomplete="off">
+	<input type="number" name="count" min="0" max="{{players[user].money}}" value="{{players[user].money}}" required autofocus/><br/>
+	<input type="hidden" name="land" value="{{i}}"/>
+	<input type="submit" value="Verbovat"/>
+</form>

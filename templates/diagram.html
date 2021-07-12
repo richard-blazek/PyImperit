@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% if forces|length>=2 %}
+		{% set maximum=forces|map('max')|max %}
+		{% set total=forces[-1]|sum %}
+		{% set space=10 %}
+		<p>Roků {{forces|length//players|length}} trvalo to,</p>
+		<p>lidé se dost vraždili,</p>
+		<p>a přitom šlo jenom o to,</p>
+		<p>vladnout aspoň na chvíli.</p>
+		<h2>Graf</h2>
+		<p>Chci, tak praví lví duch,</p>
+		<p>zde sníženou o dluh,</p>
+		<p>vidíš cenu, již mají tvé statky,</p>
+		<p>než dlouhý mír lepší je krátký.</p>
+		<svg viewBox="-10 -10 1220 620" style="border: 5px dotted #777;">
+            {% for player_index in range(players|length) %}
+				<polyline points="
+				{% for i in range(forces|length) %}
+					{{i*1200//forces|length}},{{600-600*forces[i][player_index]//maximum}}
+				{% endfor %}" style="fill:none; stroke: #{{settings.colors[player_index]}}; stroke-width:3;"></polyline>
+			{% endfor %}
+			<polyline points="
+			{% for i in range(forces|length) %}
+				{{i*1200//forces|length}},{{600-600*forces[i]|sum//players|length//maximum}}
+			{% endfor %}" style="fill:none; stroke: #fff; stroke-width:1;"></polyline>
+		</svg>
+		<p>Pohleď, jak nám vzrůstá jmění,</p>
+		<p>víc je víc, to se nemění,</p>
+		<p>mlať si, ale věz do koho,</p>
+		<p>věcí musíš minout mnoho.</p>
+		<svg viewBox="-10 -10 1220 620" style="border: 5px dotted #777;">
+		    {% for player_index in range(players|length) %}
+				{% for i in range(1, forces|length) %}
+				    {% if forces[i][player_index]!=forces[i-1][player_index] %}
+    				    <rect x="{{i*1200//forces|length}}" y="{{600-600*((forces[i][player_index]-forces[i-1][player_index])/(forces[i-1][player_index] or 1))/2-300}}"
+    				        width="{{1200/forces|length}}" height="{{1200/forces|length}}" style="fill:#{{settings.colors[player_index]}};stroke:none;"></rect>
+    				    <line x1="{{i*1200//forces|length+1200/forces|length/2}}" x2="{{i*1200//forces|length+1200/forces|length/2}}" y1="{{600-600*((forces[i][player_index]-forces[i-1][player_index])/(forces[i-1][player_index] or 1))/2-300}}" y2="300"
+    				        style="stroke:#{{settings.colors[player_index]}}40; stroke-width:{{1200/forces|length}};"></line>
+				    {% endif %}
+				{% endfor %}
+			{% endfor %}
+        </svg>
+		<p>Svou tu viz poměrnou sílu,</p>
+		<p>mířím už ke svému dílu,</p>
+		<p>chceš-li do výšek, užij nohou svých,</p>
+		<p>že se málo radujeme, dědičný náš hřích.</p>
+		<canvas id="pie" width="{{500+2*space}}px" height="{{500+2*space}}px" style="max-width: 95vw; box-sizing: border-box;">
+			Neumíš zobrazit tento graf!
+		</canvas>
+		<script>
+			var ctx=document.getElementById("pie").getContext("2d");
+			var radius=250;
+			var last_angle=0;
+			{% for player_index in range(players|length) %}
+				ctx.beginPath();
+				ctx.fillStyle="#{{settings.colors[player_index]}}";
+				ctx.moveTo(250+{{space}}, 250)+{{space}};
+
+				ctx.arc(250+{{space}}, 250+{{space}}, radius, last_angle, last_angle+Math.PI*2*{{forces[-1][player_index]/total}}, false);
+				last_angle+=Math.PI*2*{{forces[-1][player_index]/total}};
+				ctx.closePath();
+				ctx.fill();
+			{% endfor %}
+		</script>
+	{% else %}
+		<p>Hra sotva začala, co tady deláš?</p>
+	{% endif %}
+{% endblock %}

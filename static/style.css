@@ -1,0 +1,38 @@
+* {
+    text-align: center;
+	font-family: calibri;
+	text-decoration: none;
+	margin: 0;
+}
+body {
+	background-color: #000;
+	color: #fff;
+	user-select: none;
+}
+p, ul, li, tr, td, form, input, body, a:link, a:visited, a:hover, a:active, select, option {
+	font-size: 14px;
+	line-height: 1.6;
+}
+input, select, option, textarea {
+	padding: 8px;
+	border-collapse: collapse;
+	width: 40%;
+    box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	outline: none;
+	border: none;
+	color: #000;
+}
+input[type=button], input[type=submit], input[type=reset] {
+	background-color: #0f0;
+	font-weight: bold;
+}
+a:link, a:visited, a:hover, a:active {
+	color: #ff0;
+	border: 1px #0ff solid;
+	padding: 1px 5px;
+}
+svg {
+	width: 95%;
+	cursor: default;
+}

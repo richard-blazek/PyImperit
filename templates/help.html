@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p>Ty nevíš, co dělat máš,</p>
+	<p>či se jen na radu ptáš,</p>
+	<p>říkáš: Já to nedovedu,</p>
+	<p>potřebuji nápovědu!</p>
+	<h2>Nápověda</h2>
+	<h3>Možnosti</h3>
+	<p>Stránka s formulářem, ta úvodní,</p>
+	<p>ověří, že nejsi podvodník,</p>
+	<p>hesla máte stejná, věřím vám,</p>
+	<p>tak nechystejte žádný klam.</p><br/>
+	<p>Klíčová je herní stránka,</p>
+	<p>k štěstí i zábavě branka,</p>
+	<p>peníze, historie,</p>
+	<p>činnosti, provincie...</p><br/>
+	<p>Verbování, dobývání,</p>
+	<p>dokončí se po tvém tahu,</p>
+	<p>možnost koupě též je k mání,</p>
+	<p>ta je hned a bez průtahů.</p><br/>
+	<p>Matyáš est ante portas,</p>
+	<p>pak úvěr je potřeba,</p>
+	<p>pak se koupí pěšců horda,</p>
+	<p>ať nezničí tě, dareba.</p><br/>
+	<p>Přítele trápí nouze?<p>
+	<p>Snadná pomoc! Pouze</p>
+	<p>peníze, vojsko mu předej,</p>
+	<p>ale oklamat se nedej.</p>
+	<h3>Varování</h3>
+	<p>Splátka je pětinou dluhu,</p>
+	<p>a ještě {{settings.min_repayment}}&#x1F4B0; vždycky,</p>
+	<p>ten údaj ti přijde k duhu,</p>
+	<p>exekuce končí tragicky.</p><br/>
+	<p>Exekuce, to je konec,</p>
+	<p>přijdeš o provincie,</p>
+	<p>zůstane ti jenom jedna,</p>
+	<p>to tě nejspíš zabije.</p><br/>
+	<p>Velká říše stabilní není,</p>
+	<p>má tendenci k roztržení,</p>
+	<p>křehčí je, čím více roste,</p>
+	<p>vlastně je to celkem prosté.</p><br/>
+	<p>Všechny provincie mají,</p>
+	<p>pravděpodobnost danou,</p>
+	<p>že lidé vzpouru udělají,</p>
+	<p>a trhnou se stranou.</p><br/>
+	<h3>Čísla</h3>
+	<p>Máš-li víc než jednu provincií,</p>
+	<p>máš 8 % riziko,</p>
+	<p>že svou šanci využijí,</p>
+	<p>trhnou se ti, nešiko!</p><br/>
+	<p>Když provincii koupíš,</p>
+	<p>jistě neprohloupíš,</p>
+	<p>nemusíš dobývat složitě,</p>
+	<p>a máš ji okamžitě.</p><br/>
+	<p>Dluh je částka půjčená,</p>
+	<p>o {{(settings.interest_rate*100)|int}} % zvětšená,</p>
+	<p>vědět to se hodí,</p>
+	<p>ať se nic nepřihodí.</p><br/>
+	<p>Když zisk ti nese provincie</p>
+	<p>každé kolo, to se žije!</p>
+	<p>Kdo si chce jednu dobýt,</p>
+	<p>víc vojáků než ona musí mít.</p><br/>
+	<p>Jen {{settings.board_limit}} vojáků se,</p>
+	<p>za jeden tah nalodí,</p>
+	<p>postupuj po kusech,</p>
+	<p>a máš armádu na lodi.</p><br/>
+	<p>Jeden přístav za kolo,</p>
+	<p>užij jenom jednou,</p>
+	<p>máš totiž malé molo,</p>
+	<p>s jednou malou bednou.</p><br/>
+	<h3>Ovládání</h3>
+	<p>Na provincii nikoho,</p>
+	<p>klikneš, tím ji koupíš,</p>
+	<p>viz tu zemi nebohou,</p>
+	<p>hned v ní daně loupíš.</p><br/>
+	<p>Klikni si na provnicii,</p>
+	<p>tím se totiž označí,</p>
+	<p>potom můžeš pokračovat,</p>
+	<p>dělat věci jinačí.</p><br/>
+	<p>Kliknout můžeš na ni znova,</p>
+	<p>vojáky dáš verbovat,</p>
+	<p>teď poslouchej moje slova,</p>
+	<p>abys mohl lépe hrát.</p><br/>
+	<p>Kliknout můžeš na vedlejší,</p>
+	<p>a poslat tam vojáky,</p>
+	<p>ať dobyjí zem tamější,</p>
+	<p>či chrání ji před ataky.</p><br/>
+{% endblock %}

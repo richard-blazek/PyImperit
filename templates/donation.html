@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+	Máš {{players[user].money}}&#x1F4B0; a dlužíš {{players[user].debt}}&#x1F4B0;<br/>
+	Kolik chceš darovat hráči jménem <b style="color:#{{settings.colors[beneficiary]}}">{{settings.players[beneficiary]}}</b>?
+	<form action="/donate" method="POST" autocomplete="off">
+		<input type="number" name="amount" min="0" max="{{players[user].money-players[user].debt}}" autofocus/><br/>
+		<input type="hidden" name="beneficiary" value="{{beneficiary}}"/>
+		<input type="submit" value="Věnovat"/>
+	</form>
+{% endblock %}

@@ -1,0 +1,7 @@
+<h1>Nákup</h1>
+Máš {{players[user].money}}&#x1F4B0; a dlužíš {{players[user].debt}}&#x1F4B0;<br/>
+Země {{lands[i].name}} vydělává {{lands[i].earnings}}&#x1F4B0; za kolo a stojí {{price}}&#x1F4B0;. Chceš ji koupit?
+<form action="/buy" method="POST">
+	<input type="hidden" name="land" value="{{i}}"/>
+	<input type="submit" value="Koupit"/>
+</form>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<p>Vládce náš, Slunce naše jasné!</p>
+	<h2>Nová hra</h2>
+	<form action="/newgame" method="POST" id="form">
+		Nastavení<br/><textarea cols="100" rows="10" name="settings" form="form"/>{{settings_repr}}</textarea><br/>
+		Tvoje heslo<br/><input type="password" name="pw"><br/>
+		<input type="submit" value="Zahájit">
+	</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% macro color(colors, ruler, initial='333333') -%}
+	#{{colors[ruler] if ruler!=-1 else initial}}
+{%- endmacro %}
+
+<html lang="cs-cz">
+	<head>
+		<title>Imperit</title>
+		<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+		<link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}"/>
+		<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}"/>
+	</head>
+	<body>
+		<h1>Imperit</h1>
+		{% block content %} {% endblock %}
+		{% for i in range(20) %}
+			<br/>
+		{% endfor %}
+        <a href="/navod">Návod k použití</a>
+	</body>
+</html>

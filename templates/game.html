@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+	Hraje <b style="color:#{{settings.colors[playing]}};">{{settings.players[playing]}}</b>
+	{% if user!=playing %}
+	    &ndash; ale ty jsi <b style="color:#{{settings.colors[user]}};">{{settings.players[user]}}</b><br/>
+	{% else %}
+	    <br/><a href="/next">Konec</a>
+	{% endif %}
+	<a href="/logout">Odhlášení</a>
+	<a href="/history">Historie</a>
+	<a href="/graf">Grafy</a>
+	{% if next_shown %}
+	    <a href="/">Zrušit náhled</a>
+    {% else %}
+	    <a href="/shownext">Náhled po tahu</a>
+	{% endif %}
+	<h2>Peníze</h2>
+	{% for i in range(players|length) %}
+		<b style="color:#{{settings.colors[i]}};">{{settings.players[i]}}</b>
+		{% if players[i].dead %}
+			již nežije
+		{% elif i==user %}
+			má {{players[i].money}} &#x1F4B0; a dluží {{players[i].debt}} &#x1F4B0;<a href="/want-to-borrow">Půjčit si</a>
+		{% else %}
+			má {{players[i].money}} &#x1F4B0; a dluží {{players[i].debt}} &#x1F4B0;<a href="/want-to-donate/{{i}}">Věnovat</a>
+		{% endif %}<br/>
+	{% endfor %}
+	<h2>Provincie</h2>
+	{% set font_size=12 %}
+	<script>
+		last_clicked=-1
+		function click_on(i)
+		{
+		{% if user==playing %}
+			var req=new XMLHttpRequest();
+			req.open("POST", "/click-on", true);
+			req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			req.onload=function() {
+				if(req.responseText=="") {
+					if(last_clicked!=-1) {
+						document.getElementById("p"+last_clicked).style.display='none';
+					    last_clicked=-1;
+					}
+					else {
+    					document.getElementById("p"+i).style.display='initial';
+    					last_clicked=i;
+					}
+				}
+				else {
+					document.body.innerHTML=req.response;
+					last_clicked=-1;
+				}
+			};
+			req.send("dest="+i+"&start="+last_clicked);
+		{% endif %}
+		}
+	</script>
+	<svg viewBox="0 0 1200 1200">
+		{% for i in range(lands|length) %}
+			<polyline onclick="click_on({{i}})" points="
+			{% for j in range(lands[i].border|length) %}
+				{{1200*lands[i].border[j][0]}},{{1200*lands[i].border[j][1]}}
+			{% endfor %}" style="fill: {{'#0080F0' if lands[i].sea else color(settings.colors, provinces[i].ruler)}};">
+			</polyline>
+			<polyline id="p{{i}}" onclick="click_on({{i}})" points="
+			{% for j in range(lands[i].border|length) %}
+				{{1200*lands[i].border[j][0]}},{{1200*lands[i].border[j][1]}}
+			{% endfor %}" style="fill: #00000080;display:none;">
+			</polyline>
+			{% for n in range(lands|length) %}
+				{% if n!=i and n not in lands[i].neighbors %}
+					{% for line in lands[i].border_with(lands[n]) %}
+						<line x1="{{1200*line[0][0]}}" y1="{{1200*line[0][1]}}" x2="{{1200*line[1][0]}}" y2="{{1200*line[1][1]}}" style="stroke: #000; stroke-width: 3;"></line>
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+		{% for i in range(lands|length) %}
+			<a onclick="click_on({{i}}, this)" fill="#{{settings.colors[provinces[i].ruler] if lands[i].sea and provinces[i].ruler!=-1 else 'fff'}}" style="font-size:{{font_size}}px;text-anchor:middle;">
+				<text x="{{1200*lands[i].center[0]}}" y="{{1200*lands[i].center[1]-font_size/2}}">{{lands[i].name}}</text>
+				<text x="{{1200*lands[i].center[0]}}" y="{{1200*lands[i].center[1]+font_size/2}}">{{provinces[i].soldiers}}&#x1F468; {%if not lands[i].sea%}+{{lands[i].earnings}}&#x1F4B0;{%endif%}</text>
+			</a>
+		{% endfor %}
+	</svg>
+{% endblock %}

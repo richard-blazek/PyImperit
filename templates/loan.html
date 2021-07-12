@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+	Máš {{player.money}}&#x1F4B0; a dlužíš {{player.debt}}&#x1F4B0;<br/>
+	Kolik peněz si chceš půjčit? Zaplatíš o {{(settings.interest_rate*100)|int}} % více.
+	<form action="/borrow" method="POST" autocomplete="off">
+		<input type="number" name="amount" min="0" max="{{player.can_borrow(settings)}}" autofocus/><br/>
+		<input type="submit" value="Půjčit si"/>
+	</form>
+{% endblock %}

@@ -1,0 +1,8 @@
+<h1>Manévry</h1>
+Kolik vojáků chceš poslat ze země {{lands[start].name}} ({{provinces[start].soldiers}}&#x1F468;) do země {{lands[destination].name}} ({{provinces[destination].soldiers}}&#x1F468;)?
+<form action="/attack" method="POST" autocomplete="off">
+	<input type="number" name="count" min="0" max="{{[provinces[start].soldiers, provinces[start].can_board]|min if not lands[start].sea and lands[destination].sea else provinces[start].soldiers}}" value="{{[provinces[start].soldiers, provinces[start].can_board]|min if not lands[start].sea and lands[destination].sea else provinces[start].soldiers}}" required autofocus/><br/>
+	<input type="hidden" name="start" value="{{start}}"/>
+	<input type="hidden" name="destination" value="{{destination}}"/>
+	<input type="submit" value="Poslat"/>
+</form>
